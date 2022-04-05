@@ -42,16 +42,19 @@ public class AdminFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
+        
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         // check if the user is a admin
         HttpSession session = httpRequest.getSession();
         String email = (String)session.getAttribute("email");
+        String password = (String)session.getAttribute("password");
+  
         
  
         
         AccountService as = new AccountService();
-        User user = as.login(email, "password");
+        User user = as.login(email, password);
           //Role role = new Role();
      
         if (user != null && user.getRole().getRoleId() == 1 ) {
