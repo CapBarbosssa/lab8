@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.User;
 import services.AccountService;
@@ -41,7 +42,7 @@ public class AdminFilter implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest httpRequest =(HttpServletRequest) request;
-        HttpServletRequest httpResponse =(HttpServletRequest) response;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
         // check if the user is a admin
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -61,6 +62,7 @@ public class AdminFilter implements Filter {
         }
         
         chain.doFilter(request, response);
+ 
      
         
        
