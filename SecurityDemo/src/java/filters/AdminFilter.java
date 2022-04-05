@@ -55,7 +55,6 @@ public class AdminFilter implements Filter {
         
         AccountService as = new AccountService();
         User user = as.login(email, password);
-          //Role role = new Role();
      
         if (user != null && user.getRole().getRoleId() == 1 ) {
      
