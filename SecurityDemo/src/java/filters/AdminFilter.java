@@ -9,8 +9,6 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.http.HttpRequest;
-import java.util.logging.Filter;
-import java.util.logging.LogRecord;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -44,6 +42,7 @@ public class AdminFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest httpRequest =(HttpServletRequest) request;
         HttpServletRequest httpResponse =(HttpServletRequest) response;
+        // check if the user is a admin
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         HttpSession session = httpRequest.getSession();
@@ -51,18 +50,18 @@ public class AdminFilter implements Filter {
         AccountService as = new AccountService();
         User user = as.login(email, password);
         session.setAttribute("email", email);
-        
+     
         if (user.getRole().getRoleId() == 1 || user != null) {
-            httpResponse.sendRedirect("nadmin");
+     
+            httpResponse.sendRedirect("admin");
           
         } else {
             httpResponse.sendRedirect("notes");
             
         }
-         chain.doFilter(request, response);
-    }
         
-       
+        chain.doFilter(request, response);
+     
         
        
     }
@@ -81,7 +80,8 @@ public class AdminFilter implements Filter {
     public void init(FilterConfig filterConfig) {        
  
     }
-
-
-
 }
+
+
+
+
